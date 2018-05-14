@@ -1,9 +1,12 @@
 package com.jk.service.impl;
 
 import com.jk.dao.UserDao;
+import com.jk.model.UserBean;
 import com.jk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by ASUS on 2018/5/14.
@@ -15,7 +18,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public void queryUser() {
-        userDao.queryUser();
+    public List<UserBean> queryUser() {
+        System.out.println(123);
+        return userDao.queryUser();
     }
 }

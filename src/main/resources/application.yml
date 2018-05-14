@@ -5,8 +5,8 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://192.168.31.237:3306/ptp
-    username: root
-    password: 123456
+    username: nxb
+    password: 123
     driver-class-name: com.mysql.jdbc.Driver
   redis:
     port: 6379
