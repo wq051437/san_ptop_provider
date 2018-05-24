@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by new鹏 on 2018/5/15.
  */
-public class Tree  implements Serializable {
+public class Tree implements Serializable {
     private static final long serialVersionUID = 356621288614880153L;
     private  Integer  id;
     private  String  text;
