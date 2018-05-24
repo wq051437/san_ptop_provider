@@ -30,6 +30,18 @@
    <dubbo:protocol name="dubbo" port="20881" ></dubbo:protocol>
 
    <dubbo:service interface="com.jk.service.UserService" ref="userService" />
+   <dubbo:service interface="com.jk.service.CreditorService" ref="creditorService" />
+   <dubbo:service interface="com.jk.service.QTreeService" ref="qTreeService" />
+   <dubbo:service interface="com.jk.service.zxsJkService" ref="zxsjkservice" />
+   <dubbo:service interface="com.jk.service.WqQyNewsService" ref="wqQyNewsService" />
+   <dubbo:service interface="com.jk.service.WqPeopleNewsService" ref="wqPeopleNewsService" />
+   <dubbo:service interface="com.jk.service.WqJgNewsService" ref="wqJgNewsService" />
+   <dubbo:service interface="com.jk.service.WqAccountManageService" ref="wqAccountManageService" />
+   <dubbo:service interface="com.jk.service.PersonalService" ref="personalService" />
+   <dubbo:service interface="com.jk.service.ProtocolService" ref="protocolService" />
+   <dubbo:service interface="com.jk.service.QUserService" ref="qUserService" />
+   <dubbo:service interface="com.jk.service.RepaymentsService" ref="repaymentsService" />
+   <dubbo:service interface="com.jk.service.TreeService" ref="treeService" />
 
 
 </beans>
