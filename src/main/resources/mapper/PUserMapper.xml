@@ -1,0 +1,124 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+ <mapper namespace="com.jk.dao.WqAccountManageDao">
+
+	<!--查询账户信息-->
+	<select id="queryAccountManageCount" resultType="long">
+		select count(*) from p_user u where 1=1
+		<if test="qUserBean.username != null and qUserBean.username != '' ">
+			and u.username like '%${qUserBean.username}%'
+		</if>
+		<if test="qUserBean.userphone != null and qUserBean.userphone != '' ">
+			and u.userphone like '%${qUserBean.userphone}%'
+		</if>
+		<if test="qUserBean.useremily != null and qUserBean.useremily != '' ">
+			and u.useremily like '%${qUserBean.useremily}%'
+		</if>
+		<if test="qUserBean.jobnumber != null and qUserBean.jobnumber != '' ">
+			and u.jobnumber like '%${qUserBean.jobnumber}%'
+		</if>
+		<if test="registerdatestary != null and registerdatestary != '' ">
+			and registerdate &gt;= #{registerdatestary}
+		</if>
+		<if test="registerdateend != null and registerdateend != '' ">
+			and registerdate &lt;= #{registerdateend}
+		</if>
+		<if test="qUserBean.registersource != null and qUserBean.registersource != '' ">
+			and u.registersource=#{qUserBean.registersource}
+		</if>
+		<if test="qUserBean.usertype != null and qUserBean.usertype != '' ">
+			and u.usertype=#{qUserBean.usertype}
+		</if>
+		<if test="qUserBean.userstate != null and qUserBean.userstate != '' ">
+			and u.userstate=#{qUserBean.userstate}
+		</if>
+	</select>
+	<select id="queryAccountManagePage" resultType="com.jk.model.QUserBean">
+		select * from p_user u where 1=1
+		<if test="qUserBean.username != null and qUserBean.username != '' ">
+			and u.username like '%${qUserBean.username}%'
+		</if>
+		<if test="qUserBean.userphone != null and qUserBean.userphone != '' ">
+			and u.userphone like '%${qUserBean.userphone}%'
+		</if>
+		<if test="qUserBean.useremily != null and qUserBean.useremily != '' ">
+			and u.useremily like '%${qUserBean.useremily}%'
+		</if>
+		<if test="qUserBean.jobnumber != null and qUserBean.jobnumber != '' ">
+			and u.jobnumber like '%${qUserBean.jobnumber}%'
+		</if>
+		<if test="registerdatestary != null and registerdatestary != '' ">
+			and registerdate &gt;= #{registerdatestary}
+		</if>
+		<if test="registerdateend != null and registerdateend != '' ">
+			and registerdate &lt;= #{registerdateend}
+		</if>
+		<if test="qUserBean.registersource != null and qUserBean.registersource != '' ">
+			and u.registersource=#{qUserBean.registersource}
+		</if>
+		<if test="qUserBean.usertype != null and qUserBean.usertype != '' ">
+			and u.usertype=#{qUserBean.usertype}
+		</if>
+		<if test="qUserBean.userstate != null and qUserBean.userstate != '' ">
+			and u.userstate=#{qUserBean.userstate}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+	<!--导出账户信息-->
+	<select id="queryAccount" resultType="com.jk.model.QUserBean">
+		select * from p_user
+	</select>
+	<!--锁定-->
+	<update id="lockAccount" parameterType="com.jk.model.QUserBean">
+		update p_user u set u.userstate=#{userstate} where u.userid=#{userid}
+	</update>
+	<!--解锁-->
+	<update id="deblockingAccount" parameterType="com.jk.model.QUserBean">
+		update p_user u set u.userstate=#{userstate} where u.userid=#{userid}
+	</update>
+	<!--获取用户名称-->
+	<select id="backShowUsername" resultType="com.jk.model.QUserBean">
+		select * from p_user u where u.userid=#{userid}
+	</select>
+	<!--拉黑-->
+	<update id="blockAccount" parameterType="com.jk.model.QUserBean">
+		update p_user u set u.userstate=#{userstate},u.lhcontent=#{lhcontent} where u.userid=#{userid}
+	</update>
+	<!--取消拉黑-->
+	<update id="qxBlockAccount" parameterType="com.jk.model.QUserBean">
+		update p_user u set u.userstate=#{userstate} where u.userid=#{userid}
+	</update>
+	<!--添加个人信息-->
+	<select id="queryGrUsersf" parameterType="com.jk.model.QUserBean" resultType="com.jk.model.QUserBean">
+		select * from p_user u where u.username=#{username}
+	</select>
+	<insert id="addGrUser" parameterType="com.jk.model.QUserBean">
+		insert into p_user(username,userpass,userphone,useremily,userstate,jobnumber,registersource,registerdate,usertype)
+		values(#{username},#{userpass},#{userphone},#{useremily},#{userstate},#{jobnumber},#{registersource},#{registerdate},#{usertype})
+	</insert>
+	<select id="queryQUserId" parameterType="com.jk.model.QUserBean" resultType="int">
+		select u.userid from p_user u where u.username=#{username}
+	</select>
+	<insert id="addGrUsers" parameterType="com.jk.model.GrManagerBean">
+		insert into p_gr(grname,gridcard,userid)
+		values(#{grname},#{gridcard},#{userid})
+	</insert>
+	<!--新增企业信息-->
+	<select id="queryQyUsersf" parameterType="com.jk.model.QUserBean" resultType="com.jk.model.QUserBean">
+		select * from p_user u where u.username=#{username}
+	</select>
+	<insert id="addQyUser" parameterType="com.jk.model.QUserBean">
+		insert into p_user(username,userpass,userphone,useremily,userstate,registersource,registerdate,usertype)
+		values(#{username},#{userpass},#{userphone},#{useremily},#{userstate},#{registersource},#{registerdate},#{usertype})
+	</insert>
+	<select id="queryQyUserId" parameterType="com.jk.model.QUserBean" resultType="int">
+		select u.userid from p_user u where u.username=#{username}
+	</select>
+	<insert id="addQyUsers" parameterType="com.jk.model.QyManagerBean">
+		insert into p_qy(qyname,dobusiness,lxrname,sfyxinvest,userid,qypaytaxesnum,zzjgdm,zcyear,industry,zcfund,qyfr,qyscale,fridcard,zcnetworth,dkcertificate,profit,frphone,xycertificate)
+		values(#{qyname},#{dobusiness},#{lxrname},#{sfyxinvest},#{userid},#{qypaytaxesnum},#{zzjgdm},#{zcyear},#{industry},#{zcfund},#{qyfr},#{qyscale},#{fridcard},#{zcnetworth},#{dkcertificate},#{profit},#{frphone},#{xycertificate})
+	</insert>
+
+</mapper>

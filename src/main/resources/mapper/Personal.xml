@@ -1,0 +1,21 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+ <mapper namespace="com.jk.dao.PersonalDao">
+
+	<select id="queryPersonalloan" resultType="com.jk.model.Personalloan">
+        select * from t_Personalloan where 1=1
+		<if test="loanname != null and loanname != '' ">
+			and loanname like '%${loanname}%'
+		</if>
+		<if test="loantypeid != null and loantypeid != '' ">
+			and loantypeid like '%{loantypeid}%'
+		</if>
+
+	</select>
+
+    <update id="updateLoan" parameterType="com.jk.model.Personalloan">
+        update t_personalloan tp set tp.loanstate = #{loanstate},tp.process=#{process} where tp.loanid=#{loanid}
+    </update>
+</mapper>

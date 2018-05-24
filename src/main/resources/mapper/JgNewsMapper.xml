@@ -1,0 +1,77 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+ <mapper namespace="com.jk.dao.WqJgNewsDao">
+
+	<!--查询个人信息-->
+	<select id="queryJgNewsCount" resultType="long">
+		select count(*) from p_user u,p_jg j where u.userid=j.userid
+		<if test="qUserBean.username != null and qUserBean.username != '' ">
+			and u.username like '%${qUserBean.username}%'
+		</if>
+		<if test="jgname != null and jgname != '' ">
+			and j.jgname like '%${jgname}%'
+		</if>
+		<if test="lxrname != null and lxrname != '' ">
+			and j.lxrname like '%${lxrname}%'
+		</if>
+		<if test="qUserBean.userphone != null and qUserBean.userphone != '' ">
+			and u.userphone like '%${qUserBean.userphone}%'
+		</if>
+		<if test="registerdatestary != null and registerdatestary != '' ">
+			and u.registerdate &gt;= #{registerdatestary}
+		</if>
+		<if test="registerdateend != null and registerdateend != '' ">
+			and u.registerdate &lt;= #{registerdateend}
+		</if>
+		<if test="qUserBean.userstate != null and qUserBean.userstate != '' ">
+			and u.userstate=#{qUserBean.userstate}
+		</if>
+		<if test="sfyxinvest != null and sfyxinvest != '' ">
+			and j.sfyxinvest=#{sfyxinvest}
+		</if>
+		<if test="sfyxbuy != null and sfyxbuy != '' ">
+			and j.sfyxbuy=#{sfyxbuy}
+		</if>
+	</select>
+	<select id="queryJgNewsPage" resultType="java.util.Map">
+		select * from p_user u,p_jg j where u.userid=j.userid
+		<if test="qUserBean.username != null and qUserBean.username != '' ">
+			and u.username like '%${qUserBean.username}%'
+		</if>
+		<if test="jgname != null and jgname != '' ">
+			and j.jgname like '%${jgname}%'
+		</if>
+		<if test="lxrname != null and lxrname != '' ">
+			and j.lxrname like '%${lxrname}%'
+		</if>
+		<if test="qUserBean.userphone != null and qUserBean.userphone != '' ">
+			and u.userphone like '%${qUserBean.userphone}%'
+		</if>
+		<if test="registerdatestary != null and registerdatestary != '' ">
+			and u.registerdate &gt;= #{registerdatestary}
+		</if>
+		<if test="registerdateend != null and registerdateend != '' ">
+			and u.registerdate &lt;= #{registerdateend}
+		</if>
+		<if test="qUserBean.userstate != null and qUserBean.userstate != '' ">
+			and u.userstate=#{qUserBean.userstate}
+		</if>
+		<if test="sfyxinvest != null and sfyxinvest != '' ">
+			and j.sfyxinvest=#{sfyxinvest}
+		</if>
+		<if test="sfyxbuy != null and sfyxbuy != '' ">
+			and j.sfyxbuy=#{sfyxbuy}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+	<!--导出机构信息-->
+	<select id="ExceportJg" resultType="com.jk.model.JgManagerBean">
+		select j.jgid,j.jgname,j.dobusiness,j.lxrname,j.sfyxinvest,j.sfyxbuy from p_user u,p_jg j where u.userid=j.userid
+	</select>
+	<select id="ExceportAccount" resultType="com.jk.model.QUserBean">
+		select u.username,u.userphone,u.registerdate,u.userstate from p_user u,p_jg j where u.userid=j.userid
+	</select>
+
+</mapper>

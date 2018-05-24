@@ -1,0 +1,92 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+ <mapper namespace="com.jk.dao.WqPeopleNewsDao">
+
+	<!--查询个人信息-->
+	<select id="queryPeopleNewsCount" resultType="long">
+		select count(*) from p_user u,p_gr g where u.userid=g.userid
+		<if test="qUserBean.username != null and qUserBean.username != '' ">
+			and u.username like '%${qUserBean.username}%'
+		</if>
+		<if test="grname != null and grname != '' ">
+			and g.grname like '%${grname}%'
+		</if>
+		<if test="qUserBean.userphone != null and qUserBean.userphone != '' ">
+			and u.userphone like '%${qUserBean.userphone}%'
+		</if>
+		<if test="qUserBean.useremily != null and qUserBean.useremily != '' ">
+			and u.useremily like '%${qUserBean.useremily}%'
+		</if>
+		<if test="qUserBean.jobnumber != null and qUserBean.jobnumber != '' ">
+			and u.jobnumber like '%${qUserBean.jobnumber}%'
+		</if>
+		<if test="registerdatestary != null and registerdatestary != '' ">
+			and registerdate &gt;= #{registerdatestary}
+		</if>
+		<if test="registerdateend != null and registerdateend != '' ">
+			and registerdate &lt;= #{registerdateend}
+		</if>
+		<if test="qUserBean.userstate != null and qUserBean.userstate != '' ">
+			and u.userstate=#{qUserBean.userstate}
+		</if>
+		<if test="qUserBean.registersource != null and qUserBean.registersource != '' ">
+			and u.registersource=#{qUserBean.registersource}
+		</if>
+	</select>
+	<select id="queryPeopleNewsPage" resultType="java.util.Map">
+		select * from p_user u,p_gr g where u.userid=g.userid
+		<if test="qUserBean.username != null and qUserBean.username != '' ">
+			and u.username like '%${qUserBean.username}%'
+		</if>
+		<if test="grname != null and grname != '' ">
+			and g.grname like '%${grname}%'
+		</if>
+		<if test="qUserBean.userphone != null and qUserBean.userphone != '' ">
+			and u.userphone like '%${qUserBean.userphone}%'
+		</if>
+		<if test="qUserBean.useremily != null and qUserBean.useremily != '' ">
+			and u.useremily like '%${qUserBean.useremily}%'
+		</if>
+		<if test="qUserBean.jobnumber != null and qUserBean.jobnumber != '' ">
+			and u.jobnumber like '%${qUserBean.jobnumber}%'
+		</if>
+		<if test="registerdatestary != null and registerdatestary != '' ">
+			and registerdate &gt;= #{registerdatestary}
+		</if>
+		<if test="registerdateend != null and registerdateend != '' ">
+			and registerdate &lt;= #{registerdateend}
+		</if>
+		<if test="qUserBean.userstate != null and qUserBean.userstate != '' ">
+			and u.userstate=#{qUserBean.userstate}
+		</if>
+		<if test="qUserBean.registersource != null and qUserBean.registersource != '' ">
+			and u.registersource=#{qUserBean.registersource}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+	<!--回显个人信息-->
+	<select id="backShowPeopleNews" resultType="com.jk.model.QUserBean">
+		select u.* from p_user u,p_gr g where u.userid=g.userid and g.grid=#{grid}
+	</select>
+	<select id="backShowPeopleNewss" resultType="com.jk.model.GrManagerBean">
+		select * from p_gr g where g.grid=#{grid}
+	</select>
+	<!--修改个人信息-->
+	<update id="updateGrUser" parameterType="com.jk.model.QUserBean">
+		update p_user u set u.userphone=#{userphone},u.useremily=#{useremily},u.jobnumber=#{jobnumber} where u.userid=#{userid}
+	</update>
+	<!--导出个人信息-->
+	<select id="ExceportPeopleNews" resultType="com.jk.model.GrManagerBean">
+		select g.grid,g.grname,g.gridcard from p_user u,p_gr g where u.userid=g.userid
+	</select>
+	<select id="ExceportAccount" resultType="com.jk.model.QUserBean">
+		select u.username,u.userphone,u.useremily,u.userstate,u.jobnumber,u.registersource,u.registerdate from p_user u,p_gr g where u.userid=g.userid
+	</select>
+	<!--取消拉黑-->
+	<!--<update id="qxBlockAccount" parameterType="com.jk.model.QUserBean">
+		update p_user u set u.userstate=#{userstate} where u.userid=#{userid}
+	</update>-->
+
+</mapper>

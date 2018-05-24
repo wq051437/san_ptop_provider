@@ -1,0 +1,72 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+ <mapper namespace="com.jk.dao.ProtocolDao">
+
+	<!--查询账户信息-->
+	<select id="queryProtocolManageCount" resultType="long">
+		select count(*) from t_protocol p,p_gr g where p.grid = g.grid
+		<if test="grname != null and grname != '' ">
+			and g.grname like '%${grname}%'
+		</if>
+		<if test="protocol.protocolnumber != null and protocol.protocolnumber != '' ">
+			and p.protocolnumber like '%${protocol.protocolnumber}%'
+		</if>
+		<if test="protocol.protectid != null and protocol.protectid != '' ">
+			and p.protectid like '%${protocol.protectid}%'
+		</if>
+		<if test="protocol.startdate != null and protocol.startdate != '' ">
+			and p.protectdate &gt;= #{protocol.startdate}
+		</if>
+		<if test="protocol.enddate != null and protocol.enddate != '' ">
+			and p.protectdate &lt;= #{protocol.enddate}
+		</if>
+		<if test="protocol.protecttype != null and protocol.protecttype != '' ">
+			and p.protecttype=#{protocol.protecttype}
+		</if>
+	</select>
+	<!--<select id="queryProtocolManagePage" resultType="com.jk.model.Protocol">-->
+		<!--select * from t_protocol p where 1=1-->
+		<!--<if test="protocol.protocolnumber != null and protocol.protocolnumber != '' ">-->
+			<!--and p.protocolnumber like '%${protocol.protocolnumber}%'-->
+		<!--</if>-->
+		<!--<if test="protocol.protectid != null and protocol.protectid != '' ">-->
+			<!--and p.protectid like '%${protocol.protectid}%'-->
+		<!--</if>-->
+		<!--<if test="protocol.startdate != null and protocol.startdate != '' ">-->
+			<!--and p.protectdate &gt;= #{protocol.startdate}-->
+		<!--</if>-->
+		<!--<if test="protocol.enddate != null and protocol.enddate != '' ">-->
+			<!--and p.protectdate &lt;= #{protocol.enddate}-->
+		<!--</if>-->
+		<!--<if test="protocol.protecttype != null and protocol.protecttype != '' ">-->
+			<!--and p.protecttype=#{protocol.protecttype}-->
+		<!--</if>-->
+		<!--limit #{page},#{rows}-->
+	<!--</select>-->
+	<!--导出账户信息-->
+	<select id="queryProtocolManagePage" resultType="java.util.Map">
+		select p.protocolid,p.protocolnumber,p.protectid,p.protecttype,p.protectdate,g.grname from t_protocol p,p_gr g where p.grid = g.grid
+		<if test="grname != null and grname != '' ">
+			and g.grname like '%${grname}%'
+		</if>
+		<if test="protocol.protocolnumber != null and protocol.protocolnumber != '' ">
+			and p.protocolnumber like '%${protocol.protocolnumber}%'
+		</if>
+		<if test="protocol.protectid != null and protocol.protectid != '' ">
+			and p.protectid like '%${protocol.protectid}%'
+		</if>
+		<if test="protocol.startdate != null and protocol.startdate != '' ">
+			and p.protectdate &gt;= #{protocol.startdate}
+		</if>
+		<if test="protocol.enddate != null and protocol.enddate != '' ">
+			and p.protectdate &lt;= #{protocol.enddate}
+		</if>
+		<if test="protocol.protecttype != null and protocol.protecttype != '' ">
+			and p.protecttype=#{protocol.protecttype}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+
+</mapper>

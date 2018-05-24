@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.CreditorDao" >
+
+
+
+  <!--<select id="queryCreditorPage" resultType="long">-->
+	  <!--select count(*) from t_zhaiquan where 1=1-->
+	<!--<if test="jiekuantitleint != null and jiekuantitleint != ''">-->
+		<!--and jiekuantitleint like '%${jiekuantitleint}%'-->
+	<!--</if>-->
+<!--</select> -->
+
+<select id="queryCreditorList" resultType="com.jk.model.Creditor">
+	select * from t_zhaiquan where 1=1
+	<if test="jiekuantitle != null and jiekuantitle != ''">
+		and jiekuantitle like '%${jiekuantitle}%'
+	</if>
+	<if test="username != null and username != ''">
+		and username like '%${username}%'
+	</if>
+	<!--<if test="startDate != null and startDate != ''">-->
+		<!--and investtime &gt;= #{startDate}-->
+	<!--</if>-->
+	<!--<if test="endDate != null and endDate != ''">-->
+		<!--and investtime &lt;= #{endDate}-->
+	<!--</if>-->
+	<if test="claimtype != null and claimtype != ''">
+		and claimtype like '%${claimtype}%'
+	</if>
+
+</select>
+
+	<!-- 新增 -->
+	<!--<insert id="addjiekuan" parameterType="com.jk.model.Personalloan">-->
+		  <!--insert into t_personalloan  values(#{loanname},#{loanphone},#{loanmoney},#{loanmonth},#{loantypeid},#{loanadress},#{loandate},#{loandescribe})-->
+	<!--</insert>-->
+
+</mapper>
