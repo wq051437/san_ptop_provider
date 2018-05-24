@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by ASUS on 2018/5/16.
  */
-public class QUserBean implements Serializable {
+public class QUserBean implements Serializable{
     private static final long serialVersionUID = -6020939690169972332L;
     private Integer userid;//用户ID
     private String username;//用户名
@@ -18,6 +18,15 @@ public class QUserBean implements Serializable {
     private String registerdate;//注册时间
     private String usertype;//用户类型
     private String logintime;//登录时间
+    private String lhcontent;//拉黑原因
+
+    public String getLhcontent() {
+        return lhcontent;
+    }
+
+    public void setLhcontent(String lhcontent) {
+        this.lhcontent = lhcontent;
+    }
 
     public String getLogintime() {
         return logintime;
@@ -121,10 +130,11 @@ public class QUserBean implements Serializable {
                 ", registerdate='" + registerdate + '\'' +
                 ", usertype='" + usertype + '\'' +
                 ", logintime='" + logintime + '\'' +
+                ", lhcontent='" + lhcontent + '\'' +
                 '}';
     }
 
-    public QUserBean(Integer userid, String username, String userpass, String userphone, String useremily, String userstate, String jobnumber, String registersource, String registerdate, String usertype, String logintime) {
+    public QUserBean(Integer userid, String username, String userpass, String userphone, String useremily, String userstate, String jobnumber, String registersource, String registerdate, String usertype, String logintime, String lhcontent) {
         this.userid = userid;
         this.username = username;
         this.userpass = userpass;
@@ -136,7 +146,9 @@ public class QUserBean implements Serializable {
         this.registerdate = registerdate;
         this.usertype = usertype;
         this.logintime = logintime;
+        this.lhcontent = lhcontent;
     }
+
     public QUserBean() {
 
     }
