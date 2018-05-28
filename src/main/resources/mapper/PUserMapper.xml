@@ -102,8 +102,8 @@
 		select u.userid from p_user u where u.username=#{username}
 	</select>
 	<insert id="addGrUsers" parameterType="com.jk.model.GrManagerBean">
-		insert into p_gr(grname,gridcard,userid)
-		values(#{grname},#{gridcard},#{userid})
+		insert into p_gr(grname,gridcard,userid,grsex,grbirthday)
+		values(#{grname},#{gridcard},#{userid},#{grsex},#{grbirthday})
 	</insert>
 	<!--新增企业信息-->
 	<select id="queryQyUsersf" parameterType="com.jk.model.QUserBean" resultType="com.jk.model.QUserBean">
@@ -119,6 +119,21 @@
 	<insert id="addQyUsers" parameterType="com.jk.model.QyManagerBean">
 		insert into p_qy(qyname,dobusiness,lxrname,sfyxinvest,userid,qypaytaxesnum,zzjgdm,zcyear,industry,zcfund,qyfr,qyscale,fridcard,zcnetworth,dkcertificate,profit,frphone,xycertificate)
 		values(#{qyname},#{dobusiness},#{lxrname},#{sfyxinvest},#{userid},#{qypaytaxesnum},#{zzjgdm},#{zcyear},#{industry},#{zcfund},#{qyfr},#{qyscale},#{fridcard},#{zcnetworth},#{dkcertificate},#{profit},#{frphone},#{xycertificate})
+	</insert>
+	<!--新增机构信息-->
+	<select id="queryJgUsersf" parameterType="com.jk.model.QUserBean" resultType="com.jk.model.QUserBean">
+		select * from p_user u where u.username=#{username}
+	</select>
+	<insert id="addJgUser" parameterType="com.jk.model.QUserBean">
+		insert into p_user(username,userpass,userphone,useremily,userstate,registersource,registerdate,usertype)
+		values(#{username},#{userpass},#{userphone},#{useremily},#{userstate},#{registersource},#{registerdate},#{usertype})
+	</insert>
+	<select id="queryJgUserId" parameterType="com.jk.model.QUserBean" resultType="int">
+		select u.userid from p_user u where u.username=#{username}
+	</select>
+	<insert id="addJgUsers" parameterType="com.jk.model.JgManagerBean">
+		insert into p_jg(jgname,dobusiness,lxrname,sfyxinvest,sfyxbuy,userid,jgpaytaxesnum,zzjgdm,zcyear,industry,zcfund,jgfr,jgscale,fridcard,zcnetworth,frphone,profit,jgreferral,qkdescription)
+		values(#{jgname},#{dobusiness},#{lxrname},#{sfyxinvest},#{sfyxbuy},#{userid},#{jgpaytaxesnum},#{zzjgdm},#{zcyear},#{industry},#{zcfund},#{jgfr},#{jgscale},#{fridcard},#{zcnetworth},#{frphone},#{profit},#{jgreferral},#{qkdescription})
 	</insert>
 
 </mapper>

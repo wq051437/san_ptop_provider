@@ -1,0 +1,43 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jk.dao.RepaymentsDao">
+
+
+  <select id="getrepaymentslist" resultType="com.jk.model.Personalloan">
+    select    *   from   t_personalloan    where   t_personalloan.handletime!=0
+    <if test=" personalloan2.pusername != null and personalloan2.pusername !='' ">
+            and  t_Personalloan.pusername LIKE '%${personalloan2.pusername}%'
+    </if>
+    <if test=" personalloan2.loantitle != null and personalloan2.loantitle !='' ">
+      and  t_Personalloan.loantitle LIKE '%${personalloan2.loantitle}%'
+    </if>
+    <if test="starttime != null and starttime != '' ">
+      and   t_Personalloan.handletime &gt;= #{starttime}
+    </if>
+    <if test="endtime != null and endtime != '' ">
+      and    t_Personalloan.handletime &lt;= #{endtime}
+    </if>
+  </select>
+
+  <select id="getrepaymentslist2" resultType="com.jk.model.Personalloan">
+    select    *   from   t_personalloan    where   t_personalloan.handletime!=0
+    <if test=" personalloan2.pusername != null and personalloan2.pusername !='' ">
+      and  t_Personalloan.pusername LIKE '%${personalloan2.pusername}%'
+    </if>
+    <if test=" personalloan2.loantitle != null and personalloan2.loantitle !='' ">
+      and  t_Personalloan.loantitle LIKE '%${personalloan2.loantitle}%'
+    </if>
+  </select>
+
+  <select id="getrepaymentslist3" resultType="com.jk.model.Personalloan">
+    select    *   from   t_personalloan    where   t_personalloan.handletime!=0
+    <if test=" personalloan2.pusername != null and personalloan2.pusername !='' ">
+      and  t_Personalloan.pusername LIKE '%${personalloan2.pusername}%'
+    </if>
+    <if test=" personalloan2.loantitle != null and personalloan2.loantitle !='' ">
+      and  t_Personalloan.loantitle LIKE '%${personalloan2.loantitle}%'
+    </if>
+  </select>
+</mapper>

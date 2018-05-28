@@ -12,10 +12,9 @@ import java.util.List;
  */
 @Mapper
 public interface RepaymentsDao {
-    @Select("select   count(*)   from   t_personalloan   ")
-    Long getrepaymentsSum();
-    @Select(" select    *   from   t_personalloan   limit #{offset},#{limit} ")
-    List<Personalloan> getrepaymentslist(@Param("offset") Integer offset, @Param("limit") Integer limit);
-    
+    List<Personalloan> getrepaymentslist(@Param("offset") Integer offset,@Param("limit") Integer limit,@Param("personalloan2") Personalloan personalloan2,@Param("starttime") String starttime, @Param("endtime") String endtime );
 
+    List<Personalloan> getrepaymentslist2(@Param("offset") Integer offset,@Param("limit") Integer limit,@Param("personalloan2") Personalloan personalloan2);
+
+    List<Personalloan> getrepaymentslist3(@Param("offset") Integer offset,@Param("limit") Integer limit,@Param("personalloan2") Personalloan personalloan2);
 }

@@ -38,4 +38,21 @@ public class WqQyNewsServiceImpl implements WqQyNewsService {
     public List<QUserBean> ExceportAccount() {
         return wqQyNewsDao.ExceportAccount();
     }
+
+    //回显企业信息
+    @Override
+    public QUserBean backShowQy(Integer qyid) {
+        return wqQyNewsDao.backShowQy(qyid);
+    }
+
+    @Override
+    public QyManagerBean backShowQys(Integer qyid) {
+        return wqQyNewsDao.backShowQys(qyid);
+    }
+
+    //修改企业信息
+    @Override
+    public void updateQyUser(QyManagerBean qyManagerBean) {
+        wqQyNewsDao.updateQyUser(qyManagerBean);
+    }
 }

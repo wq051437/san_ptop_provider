@@ -1,0 +1,31 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jk.dao.FinanceDao">
+
+	<select id="queryrecharge" resultType="com.jk.model.Recharge">
+		select pu.username, tr.* from t_recharge tr,p_user pu where pu.userid=tr.userid
+		<if test="username != null and username != '' ">
+			and username like '%${username}%'
+		</if>
+		<if test="paycompany != null and paycompany != '' ">
+			and paycompany like '%{paycompany}%'
+		</if>
+
+	</select>
+
+	<!--<update id="updateLoan" parameterType="com.jk.model.Companyloan">
+		update t_companyloan tc set tc.loanstate = #{loanstate},tc.loanresult=#{loanresult},tc.resulttime=#{resulttime},tc.loanhandle=#{loanhandle} where tc.companyid=#{companyid}
+	</update>-->
+	<select id="querylend" resultType="com.jk.model.Personalloan">
+		select tp.*,pc.capitalname from t_personalloan tp,p_capital pc where tp.userid=pc.userid and tp.loanhandle=1
+		<!--<if test="contactname != null and contactname != '' ">
+			and contactname like '%${contactname}%'
+		</if>
+		<if test="loanstate != null and loanstate != '' ">
+			and loanstate like '%{loanstate}%'
+		</if>-->
+
+	</select>
+</mapper>

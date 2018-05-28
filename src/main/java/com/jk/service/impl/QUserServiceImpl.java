@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by new鹏 on 2018/5/18.
@@ -27,4 +28,31 @@ public class QUserServiceImpl   implements QUserService{
         String q = simpleDateFormat.format(new Date());
         qUserDao.updatedate(userid,q);
     }
+
+    @Override
+    public List querygerenlist(Integer userid) {
+        return qUserDao.querygerenlist(userid);
+    }
+
+    @Override
+    public void updatemima(Integer userid, String userpass) {
+        qUserDao.updatemima(userid,userpass);
+    }
+
+    @Override
+    public void updatejiaoyimima(String jiaoyi, Integer userid) {
+        qUserDao.updatejiaoyimima(jiaoyi,userid);
+    }
+
+    @Override
+    public void addphoto(String fileUrl, Integer userid) {
+        qUserDao.addphoto(fileUrl,userid);
+    }
+
+    @Override
+    public String addphotolist(String qname) {
+        return qUserDao.addphotolist(qname);
+    }
+
+
 }

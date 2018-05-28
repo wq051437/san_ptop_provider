@@ -85,8 +85,8 @@
 		select u.username,u.userphone,u.useremily,u.userstate,u.jobnumber,u.registersource,u.registerdate from p_user u,p_gr g where u.userid=g.userid
 	</select>
 	<!--取消拉黑-->
-	<!--<update id="qxBlockAccount" parameterType="com.jk.model.QUserBean">
-		update p_user u set u.userstate=#{userstate} where u.userid=#{userid}
-	</update>-->
+	<select id="selectCapital" resultType="com.jk.model.CapitalBean">
+		select * from p_capital c where c.userid=#{userid}
+	</select>
 
 </mapper>

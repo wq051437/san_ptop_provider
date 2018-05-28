@@ -3,6 +3,7 @@ package com.jk.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.jk.dao.WqAccountManageDao;
 import com.jk.model.GrManagerBean;
+import com.jk.model.JgManagerBean;
 import com.jk.model.QUserBean;
 import com.jk.model.QyManagerBean;
 import com.jk.service.WqAccountManageService;
@@ -73,6 +74,23 @@ public class WqAccountManageServiceImpl implements WqAccountManageService {
             int userid = wqAccountManageDao.queryQyUserId(qUserBean);
             qyManagerBean.setUserid(userid);
             wqAccountManageDao.addQyUsers(qyManagerBean);
+        }
+    }
+
+    //新增机构信息
+    @Override
+    public void addJgUser(QUserBean qUserBean, JgManagerBean jgManagerBean) {
+        List list = wqAccountManageDao.queryJgUsersf(qUserBean);
+        if(list.size()==0){
+            SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+            String addGrUserTime = sim.format(new Date());
+            qUserBean.setRegisterdate(addGrUserTime);
+            qUserBean.setUserpass("123456");
+            qUserBean.setUserstate("启用");
+            wqAccountManageDao.addJgUser(qUserBean);
+            int userid = wqAccountManageDao.queryJgUserId(qUserBean);
+            jgManagerBean.setUserid(userid);
+            wqAccountManageDao.addJgUsers(jgManagerBean);
         }
     }
 

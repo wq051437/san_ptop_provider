@@ -1,0 +1,21 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jk.dao.CompanyDao">
+
+  <select id="queryCompanyloanloan" resultType="com.jk.model.Companyloan">
+    select * from t_companyloan where 1=1
+    <if test="contactname != null and contactname != '' ">
+      and contactname like '%${contactname}%'
+    </if>
+    <if test="loanstate != null and loanstate != '' ">
+      and loanstate like '%{loanstate}%'
+    </if>
+
+  </select>
+
+  <update id="updateLoan" parameterType="com.jk.model.Companyloan">
+    update t_companyloan tc set tc.loanstate = #{loanstate},tc.loanresult=#{loanresult},tc.resulttime=#{resulttime},tc.loanhandle=#{loanhandle} where tc.companyid=#{companyid}
+  </update>
+</mapper>

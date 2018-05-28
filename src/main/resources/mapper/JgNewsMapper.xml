@@ -4,7 +4,7 @@
 
  <mapper namespace="com.jk.dao.WqJgNewsDao">
 
-	<!--查询个人信息-->
+	<!--查询机构信息-->
 	<select id="queryJgNewsCount" resultType="long">
 		select count(*) from p_user u,p_jg j where u.userid=j.userid
 		<if test="qUserBean.username != null and qUserBean.username != '' ">
@@ -73,5 +73,16 @@
 	<select id="ExceportAccount" resultType="com.jk.model.QUserBean">
 		select u.username,u.userphone,u.registerdate,u.userstate from p_user u,p_jg j where u.userid=j.userid
 	</select>
+	<!--回显机构信息-->
+	<select id="backShowJg" resultType="com.jk.model.QUserBean">
+		select u.* from p_user u,p_jg j where u.userid=j.userid and j.jgid=#{jgid}
+	</select>
+	<select id="backShowJgs" resultType="com.jk.model.JgManagerBean">
+		select * from p_jg j where j.jgid=#{jgid}
+	</select>
+	<!--修改机构信息-->
+	<update id="updateJgUser" parameterType="com.jk.model.JgManagerBean">
+		update p_jg j set j.dobusiness=#{dobusiness},j.jgpaytaxesnum=#{jgpaytaxesnum},j.zzjgdm=#{zzjgdm},j.zcyear=#{zcyear},j.zcfund=#{zcfund},j.industry=#{industry},j.jgscale=#{jgscale},j.jgfr=#{jgfr},j.fridcard=#{fridcard},j.zcnetworth=#{zcnetworth},j.profit=#{profit},j.jgreferral=#{jgreferral},j.sfyxinvest=#{sfyxinvest},j.sfyxbuy=#{sfyxbuy} where j.jgid=#{jgid}
+	</update>
 
 </mapper>

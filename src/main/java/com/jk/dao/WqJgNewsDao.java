@@ -17,4 +17,11 @@ public interface WqJgNewsDao {
     //导出机构信息
     List<QUserBean> ExceportAccount();
     List<JgManagerBean> ExceportJg();
+
+    //回显机构信息
+    QUserBean backShowJg(Integer jgid);
+    JgManagerBean backShowJgs(Integer jgid);
+
+    //修改机构信息
+    void updateJgUser(JgManagerBean jgManagerBean);
 }

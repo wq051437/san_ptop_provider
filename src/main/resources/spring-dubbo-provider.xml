@@ -42,6 +42,9 @@
    <dubbo:service interface="com.jk.service.QUserService" ref="qUserService" />
    <dubbo:service interface="com.jk.service.RepaymentsService" ref="repaymentsService" />
    <dubbo:service interface="com.jk.service.TreeService" ref="treeService" />
+   <dubbo:service interface="com.jk.service.LogService" ref="logService" />
+    <dubbo:service interface="com.jk.service.CompanyService" ref="companyService " />
+    <dubbo:service interface="com.jk.service.FinanceService" ref="financeService " />
 
 
 </beans>

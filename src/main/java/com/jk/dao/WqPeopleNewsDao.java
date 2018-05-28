@@ -1,5 +1,6 @@
 package com.jk.dao;
 
+import com.jk.model.CapitalBean;
 import com.jk.model.GrManagerBean;
 import com.jk.model.QUserBean;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,4 +30,6 @@ public interface WqPeopleNewsDao {
     List<GrManagerBean> ExceportPeopleNews();
 
     List<QUserBean> ExceportAccount();
+
+    CapitalBean selectCapital(Integer userid);
 }

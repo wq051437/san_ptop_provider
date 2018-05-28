@@ -37,4 +37,21 @@ public class WqJgNewsServiceImpl implements WqJgNewsService {
     public List<JgManagerBean> ExceportJg() {
         return wqJgNewsDao.ExceportJg();
     }
+
+    //回显机构信息
+    @Override
+    public QUserBean backShowJg(Integer jgid) {
+        return wqJgNewsDao.backShowJg(jgid);
+    }
+
+    @Override
+    public JgManagerBean backShowJgs(Integer jgid) {
+        return wqJgNewsDao.backShowJgs(jgid);
+    }
+
+    //修改机构信息
+    @Override
+    public void updateJgUser(JgManagerBean jgManagerBean) {
+        wqJgNewsDao.updateJgUser(jgManagerBean);
+    }
 }

@@ -17,4 +17,12 @@ public interface WqQyNewsDao {
     //导出企业信息
     List<QyManagerBean> ExceportQy();
     List<QUserBean> ExceportAccount();
+
+    //回显企业信息
+    QUserBean backShowQy(Integer qyid);
+
+    QyManagerBean backShowQys(Integer qyid);
+
+    //修改企业信息
+    void updateQyUser(QyManagerBean qyManagerBean);
 }

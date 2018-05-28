@@ -1,6 +1,7 @@
 package com.jk.dao;
 
 import com.jk.model.GrManagerBean;
+import com.jk.model.JgManagerBean;
 import com.jk.model.QUserBean;
 import com.jk.model.QyManagerBean;
 import org.apache.ibatis.annotations.Mapper;
@@ -47,4 +48,10 @@ public interface WqAccountManageDao {
     void addQyUser(QUserBean qUserBean);
     int queryQyUserId(QUserBean qUserBean);
     void addQyUsers(QyManagerBean qyManagerBean);
+
+    //新增机构信息
+    List queryJgUsersf(QUserBean qUserBean);
+    void addJgUser(QUserBean qUserBean);
+    int queryJgUserId(QUserBean qUserBean);
+    void addJgUsers(JgManagerBean jgManagerBean);
 }

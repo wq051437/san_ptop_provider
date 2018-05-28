@@ -2,6 +2,7 @@ package com.jk.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jk.dao.WqPeopleNewsDao;
+import com.jk.model.CapitalBean;
 import com.jk.model.GrManagerBean;
 import com.jk.model.QUserBean;
 import com.jk.service.WqPeopleNewsService;
@@ -56,5 +57,10 @@ public class WqPeopleNewsServiceImpl implements WqPeopleNewsService {
     @Override
     public List<QUserBean> ExceportAccount() {
         return wqPeopleNewsDao.ExceportAccount();
+    }
+
+    @Override
+    public CapitalBean selectCapital(Integer userid) {
+        return wqPeopleNewsDao.selectCapital(userid);
     }
 }
