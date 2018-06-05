@@ -41,4 +41,30 @@ public class UserServiceImpl implements UserService {
         Integer  count=  userDao.queryloginrenshu(format);
         return count;
     }
+
+    @Override
+    public UserBean addpanduanphone(String phone) {
+
+        return userDao.addpanduanphone(phone);
+    }
+
+    @Override
+    public void updateusermima(Integer userid, String userpass) {
+        userDao.updateusermima(userid,userpass);
+    }
+
+    @Override
+    public Integer querydsh() {
+        return userDao.querydsh();
+    }
+
+    @Override
+    public Integer querydcl() {
+        return userDao.querydcl();
+    }
+
+    @Override
+    public Integer querydfb() {
+        return userDao.querydfb();
+    }
 }

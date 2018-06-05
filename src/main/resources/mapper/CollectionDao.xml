@@ -1,0 +1,129 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jk.dao.CollectionDao">
+
+
+  <insert id="addunclinelist"   parameterType="com.jk.model.CollectionBean">
+    insert into t_underline (userid,collectiontype,collectionname,collectiontime,collectiontext,collectionline)
+    values(#{userid},#{collectiontype},#{collectionname},#{collectiontime},#{collectiontext},#{collectionline})
+  </insert>
+
+   <select id="querycollectionCount"   resultType="long" >
+
+    select   count(*)   from  t_underline,t_personalloan
+    where   t_underline.userid=t_personalloan.userid
+    and  t_personalloan.loanid=#{loanid}
+
+   </select>
+
+
+
+   <select id="querycollectionlist"   resultType="com.jk.model.CollectionBean">
+ select   t_underline.*   from  t_underline,t_personalloan
+    where   t_underline.userid=t_personalloan.userid
+    and  t_personalloan.loanid=#{loanid}
+    limit #{offset},#{limit}
+   </select>
+
+
+
+
+
+
+   <select id="addchaxuqiu"  resultType="java.util.Map">
+     select    p_user.*   from   t_personalloan,p_user    where  t_personalloan.userid=p_user.userid and  t_personalloan.userid=#{userid}
+   </select>
+
+
+
+    <insert id="addonlinelist"   parameterType="com.jk.model.Online">
+        insert into t_online (userid,onlinetype,onlinetime,onlinetito,onlinetext,onlinename)
+        values(#{userid},#{onlinetype},#{onlinetime},#{onlinetito},#{onlinetext},#{onlinename})
+    </insert>
+
+    <insert id="addonclinelist"   parameterType="com.jk.model.Online">
+        insert into t_online (userid,onlinetype,onlinetime,onlinetito,onlinetext,onlinename)
+        values(#{userid},#{onlinetype},#{onlinetime},#{onlinetito},#{onlinetext},#{onlinename})
+    </insert>
+
+
+
+     <select id="queryunderlineCount"   resultType="long">
+      select  count(*)  from  t_underline,p_user  where  t_underline.userid=p_user.userid
+         <if test=" username != null and username !='' ">
+             and  p_user.username LIKE '%${username}%'
+         </if>
+         <if test=" collectiontype != null and collectiontype !='全部' ">
+             and  t_underline.collectiontype LIKE '%${collectiontype}%'
+         </if>
+         <if test="starttimess != null and starttimess != '' ">
+             and   t_underline.collectiontime &gt;= #{starttimess}
+         </if>
+         <if test="endtimess != null and endtimess != '' ">
+             and    t_underline.collectiontime &lt;= #{endtimess}
+         </if>
+     </select>
+     <select id="queryunderlinelist"    resultType="java.util.Map">
+      select  * from  t_underline,p_user  where  t_underline.userid=p_user.userid
+         <if test=" username != null and username !='' ">
+             and  p_user.username LIKE '%${username}%'
+         </if>
+         <if test=" collectiontype != null and collectiontype !='全部' ">
+             and  t_underline.collectiontype LIKE '%${collectiontype}%'
+         </if>
+         <if test="starttimess != null and starttimess != '' ">
+             and   t_underline.collectiontime &gt;= #{starttimess}
+         </if>
+         <if test="endtimess != null and endtimess != '' ">
+             and    t_underline.collectiontime &lt;= #{endtimess}
+         </if>
+         limit #{offset},#{limit}
+     </select>
+     <select id="queryonlineCount"    resultType="long">
+     select   count(*)   from  t_online,p_user  where   t_online.userid=p_user.userid
+         <if test=" username != null and username !='' ">
+             and  p_user.username LIKE '%${username}%'
+         </if>
+         <if test=" collectiontype != null and collectiontype !='全部' ">
+             and  t_online.onlinetype LIKE '%${collectiontype}%'
+         </if>
+         <if test="starttimess != null and starttimess != '' ">
+             and   t_online.onlinetime &gt;= #{starttimess}
+         </if>
+         <if test="endtimess != null and endtimess != '' ">
+             and    t_online.onlinetime &lt;= #{endtimess}
+         </if>
+     </select>
+     <select id="queryonlinelist"     resultType="java.util.Map">
+     select   *   from  t_online,p_user  where   t_online.userid=p_user.userid
+         <if test=" username != null and username !='' ">
+             and  p_user.username LIKE '%${username}%'
+         </if>
+         <if test=" collectiontype != null and collectiontype !='全部' ">
+             and  t_online.onlinetype LIKE '%${collectiontype}%'
+         </if>
+         <if test="starttimess != null and starttimess != '' ">
+             and   t_online.onlinetime &gt;= #{starttimess}
+         </if>
+         <if test="endtimess != null and endtimess != '' ">
+             and    t_online.onlinetime &lt;= #{endtimess}
+         </if>
+         limit #{offset},#{limit}
+</select>
+    <select id="querydetailsUnderline"   resultType="java.util.Map">
+
+        select * from t_underline,p_user   where     t_underline.userid=p_user.userid
+        and  t_underline.collectionid=#{collectionid};
+
+    </select>
+
+    <select id="querydetailsonline"    resultType="java.util.Map">
+
+        select   *   from  t_online,p_user where   t_online.userid=p_user.userid
+        and   t_online.onlineid=#{onlineid}
+    </select>
+
+
+</mapper>

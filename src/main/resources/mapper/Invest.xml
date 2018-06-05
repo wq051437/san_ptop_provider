@@ -1,0 +1,39 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jk.dao.InvestDao">
+
+    <select id="queryInvest" resultType="com.jk.model.Invest">
+        select * from t_Invest where 1=1
+        <if test="investtitle != null and investtitle != '' ">
+            and investtitle like '%${investtitle}%'
+        </if>
+        <if test="lendstate != null and lendstate != '' ">
+            and lendstate like '%{lendstate}%'
+        </if>
+    </select>
+
+<!--审核-->
+    <update id="updateInvestById" parameterType="com.jk.model.Invest">
+        update t_invest ti set
+        ti.lendopinion=#{lendopinion},ti.lendstate=#{lendstate},ti.lendtime=#{lendtime}
+        where ti.investid=#{investid}
+    </update>
+
+<!--发布-->
+    <update id="updateInvesttwo" parameterType="com.jk.model.Invest">
+        update t_invest ti set
+        ti.lendstate=#{lendstate},ti.lendtime=#{lendtime}
+        where ti.investid=#{investid}
+    </update>
+
+<!--发布-->
+    <update id="updateInvests" parameterType="com.jk.model.Invest">
+        update t_invest ti set
+        ti.lendstate=#{lendstate},ti.lendtime=#{lendtime}
+        where ti.investid=#{investid}
+    </update>
+
+
+</mapper>

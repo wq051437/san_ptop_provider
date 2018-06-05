@@ -5,11 +5,115 @@
 <mapper namespace="com.jk.dao.QUserDao">
 
     <select id="querygerenlist"   resultType="java.util.Map">
-      SELECT    *   from   p_user a,p_gr b where   a.userid=b.userid  and   a.userid=#{userid}
+    SELECT    *   from   p_user a,p_gr b where   a.userid=b.userid  and   a.userid=#{userid}
+    </select>
+    <select id="querygerenlist2"  resultType="java.util.Map">
+        SELECT    *   from   p_gr   where      p_gr.userid=#{userid}
     </select>
 
+
     <select id="addphotolist"   resultType="String"  parameterType="String" >
-         select   p_gr.grphoto   from  p_user,p_gr where    p_user.userid=p_gr.userid  and  p_user.username=#{qname}
+        select   p_gr.grphoto   from  p_user,p_gr where    p_user.userid=p_gr.userid  and  p_user.username=#{qname}
     </select>
+
+
+    <select id="queryeducationlistCount"    resultType="long">
+        SELECT   count(*)   from  p_stu  where   p_stu.userid=#{userid}
+    </select>
+    <select id="queryeducationlist"     resultType="java.util.Map">
+        select   *   from  p_stu  where  p_stu.userid=#{userid}
+        limit #{offset},#{limit}
+    </select>
+
+
+    <insert id="addeducationlist"   parameterType="com.jk.model.EducationBean">
+        insert into p_stu (finishschool,enrollmentyear,finishyear,major,schoolinfo,userid)
+        values(#{finishschool},#{enrollmentyear},#{finishyear},#{major},#{schoolinfo},#{userid})
+    </insert>
+
+    <select id="queryupdatelist"   resultType="com.jk.model.EducationBean">
+        select   *   from  p_stu  where  p_stu.stuid=#{stuid}
+    </select>
+
+    <update id="updateeducationlist"   parameterType="com.jk.model.EducationBean">
+        update p_stu set p_stu.finishschool=#{finishschool},p_stu.enrollmentyear=#{enrollmentyear},
+        p_stu.finishyear=#{finishyear},p_stu.major=#{major},p_stu.schoolinfo=#{schoolinfo}
+        where  p_stu.stuid=#{stuid}
+    </update>
+
+    <select id="queryworklistCount"   resultType="long">
+        SELECT    count(*)   from  p_work  where   p_work.userid=#{userid}
+    </select>
+    <select id="queryworklist"   resultType="com.jk.model.WorkBean">
+        select   *   from  p_work  where  p_work.userid=#{userid}
+    </select>
+
+    <select id="queryaddresslist"  resultType="com.jk.model.TArea">
+        SELECT   *  from   t_area  where   t_area.parentid=0
+    </select>
+
+
+    <insert id="addworklist"   parameterType="com.jk.model.WorkBean">
+        insert into p_work (workstate,companyname,positionname,workaddress,userid)
+        values(#{workstate},#{companyname},#{positionname},#{workaddress},#{userid})
+    </insert>
+    <select id="queryupdateworklist"   resultType="com.jk.model.WorkBean" >
+
+        select   *   from  p_work  where  p_work.workid=#{workid}
+
+    </select>
+    <update id="updateworklist"   parameterType="com.jk.model.WorkBean">
+        update p_work set p_work.workstate=#{workstate},p_work.companyname=#{companyname},
+        p_work.positionname=#{positionname},p_work.workaddress=#{workaddress}
+        where  p_work.workid=#{workid}
+    </update>
+
+
+    <select id="queryroomlistCount"    resultType="long">
+        SELECT    count(*)   from  p_room  where  p_room.userid=#{userid}
+    </select>
+    <select id="queryroomlist"    resultType="com.jk.model.RoomBean">
+        SELECT   *   from  p_room  where  p_room.userid=#{userid}
+    </select>
+    <insert id="addroomlist"  parameterType="com.jk.model.RoomBean">
+        insert into p_room (quartersname,squaremeter,roomprice,roomaddress,userid)
+        values(#{quartersname},#{squaremeter},#{roomprice},#{roomaddress},#{userid})
+    </insert>
+    <select id="queryupdateroomlist"  resultType="com.jk.model.RoomBean">
+        SELECT   *   from  p_room  where  p_room.roomid=#{roomid}
+    </select>
+    <update id="updateroomlist"  parameterType="com.jk.model.RoomBean">
+        update p_room set p_room.quartersname=#{quartersname},p_room.squaremeter=#{squaremeter},
+        p_room.roomprice=#{roomprice},p_room.roomaddress=#{roomaddress}
+        where  p_room.roomid=#{roomid}
+    </update>
+
+    <select id="querycarlistCount"    resultType="long">
+        SELECT    count(*)   from  p_car  where  p_car.userid=#{userid}
+    </select>
+    <select id="querycarlist"    resultType="com.jk.model.CarBean">
+        SELECT   *   from  p_car  where  p_car.userid=#{userid}
+    </select>
+    <insert id="addcarlist"  parameterType="com.jk.model.CarBean">
+        insert into p_car (carbrand,carnum,buycaryear,buyprice,assessmentprice,userid)
+        values(#{carbrand},#{carnum},#{buycaryear},#{buyprice},#{assessmentprice},#{userid})
+    </insert>
+    <select id="queryupdatecarlist" resultType="com.jk.model.CarBean">
+        SELECT   *   from  p_car  where  p_car.carid=#{carid}
+    </select>
+    <update id="updatecarlist" parameterType="com.jk.model.CarBean">
+        update p_car set p_car.carbrand=#{carbrand},p_car.carnum=#{carnum},
+        p_car.buycaryear=#{buycaryear},p_car.buyprice=#{buyprice},p_car.assessmentprice=#{assessmentprice}
+        where  p_car.carid=#{carid}
+    </update>
+
+    <select id="addpanduanphone"   resultType="com.jk.model.QUserBean">
+        select    *   from   p_user  where   p_user.userphone=#{phone}
+    </select>
+
+    <insert id="addpuserlist"  parameterType="com.jk.model.QUserBean">
+        insert into p_user (username,userpass,userphone,useremily,userstate,jobnumber,registersource,registerdate,usertype)
+        values(#{username},#{userpass},#{userphone},#{useremily},#{userstate},#{jobnumber},#{registersource},#{registerdate},#{usertype})
+    </insert>
 
 </mapper>

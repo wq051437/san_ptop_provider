@@ -10,7 +10,7 @@ public class Recharge implements Serializable{
 
     private static final long serialVersionUID = 4893762404366548069L;
     private Integer rechargeid;                   //充值ID
-    private Integer rechargenumber;              //线上充值订单号
+    private long rechargenumber;              //线上充值订单号
     private Integer userid;                       //用户名关联
     private Double rechargemoney;                //充值金额
     private Double receivable;                   //应收手续费
@@ -18,7 +18,7 @@ public class Recharge implements Serializable{
     private String finishdate;                   //充值时间
     private String paycompany;                  //支付公司名称
     private Integer rechargestate;              //充值状态
-    private Integer serialnumber;               //流水单号
+    private long serialnumber;               //流水单号
 
 
     private String username;//业务用户名
@@ -30,14 +30,6 @@ public class Recharge implements Serializable{
 
     public void setRechargeid(Integer rechargeid) {
         this.rechargeid = rechargeid;
-    }
-
-    public Integer getRechargenumber() {
-        return rechargenumber;
-    }
-
-    public void setRechargenumber(Integer rechargenumber) {
-        this.rechargenumber = rechargenumber;
     }
 
     public Integer getUserid() {
@@ -96,20 +88,28 @@ public class Recharge implements Serializable{
         this.rechargestate = rechargestate;
     }
 
-    public Integer getSerialnumber() {
-        return serialnumber;
-    }
-
-    public void setSerialnumber(Integer serialnumber) {
-        this.serialnumber = serialnumber;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public long getRechargenumber() {
+        return rechargenumber;
+    }
+
+    public void setRechargenumber(long rechargenumber) {
+        this.rechargenumber = rechargenumber;
+    }
+
+    public long getSerialnumber() {
+        return serialnumber;
+    }
+
+    public void setSerialnumber(long serialnumber) {
+        this.serialnumber = serialnumber;
     }
 
     @Override

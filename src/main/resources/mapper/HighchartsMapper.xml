@@ -1,0 +1,41 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.jk.dao.WqHighchartsDao">
+
+  <!--查询会员统计-->
+  <select id="highchartsVipTj" resultType="java.util.Map">
+    select u.usertype,count(u.usertype) usercount from p_user u group by u.usertype
+  </select>
+
+  <!--余额统计               where u.usertype='个人'-->
+  <select id="highchartsYeTj" resultType="java.util.Map">
+    select u.usertype,sum(c.capitalmoney) capitalmoney from p_capital c left join p_user u on u.userid=c.userid group by u.usertype
+  </select>
+
+  <!--借款统计-->
+  <select id="highchartsJkTj" resultType="java.util.Map">
+    select sum(pe.loanmoney) zloanmoney,sum(h.hkmoney) zhkmoney,sum(h.hklx) zhklx,pe.moneyrate from t_personalloan pe left join p_hk h on pe.loanid=h.loanid
+  </select>
+  <!--查询投资-->
+  <select id="queryInvest" resultType="java.util.Map">
+    select i.investid,i.investtitle,i.investrate,i.investterm,i.investmoney,sum(inv.investrecordmaney) investrecordmaney,i.lendstate from t_invest i left join t_investrecord inv on i.investid=inv.investid where i.lendstate=1 or i.lendstate=3 group by i.investtitle
+  </select>
+  <!--跟进ID查询投资信息-->
+  <select id="queryInvestById" resultType="com.jk.model.Invest">
+    select * from t_invest i where i.investid=#{investid}
+  </select>
+  <select id="queryinvestRecordById" resultType="java.util.Map">
+    select i.investid,i.investtitle,i.investmoney,i.investrate,i.investterm,i.lendtime,sum(inv.investrecordmaney) suminvestrecordmaney from t_invest i,t_investrecord inv where inv.investid=i.investid and i.investid=#{investid}
+  </select>
+  <!--添加投资记录-->
+  <insert id="addInvestRecord" parameterType="com.jk.model.InvestRecord">
+    INSERT INTO t_investrecord(investrecordmaney,userid,investid,investrecordtime)
+    VALUES(#{investrecordmaney},#{userid},#{investid},#{investrecordtime})
+  </insert>
+  <update id="updateInvestRecordByq" parameterType="com.jk.model.InvestRecord">
+    UPDATE p_capital c SET c.capitalmoney=c.capitalmoney-#{investrecordmaney} WHERE c.userid=#{userid}
+  </update>
+
+</mapper>

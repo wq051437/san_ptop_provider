@@ -32,4 +32,38 @@ public interface WqPeopleNewsDao {
     List<QUserBean> ExceportAccount();
 
     CapitalBean selectCapital(Integer userid);
+
+    //查询个人基本信息
+    QUserBean selectJbPeopleNews(Integer grid);
+
+    GrManagerBean selectJbPeopleNewss(Integer grid);
+
+    GrManagerBean selectJbPeopleNewss1(Integer userid);
+
+    QUserBean selectJbPeopleNews1(Integer userid);
+
+    //查询个人学历信息
+    long queryGrEducationCount(@Param("userid") Integer userid);
+
+    List queryGrEducationPage(@Param("offset") Integer offset,@Param("limit")Integer limit, @Param("userid")Integer userid);
+
+    //查询个人工作信息
+    long queryGrWorkCount(@Param("userid")Integer userid);
+
+    List queryGrWorkPage(@Param("offset") Integer offset,@Param("limit")Integer limit, @Param("userid")Integer userid);
+
+    //查询个人房产信息
+    long queryGrRoomCount(@Param("userid")Integer userid);
+
+    List queryGrRoomPage(@Param("offset") Integer offset,@Param("limit")Integer limit, @Param("userid")Integer userid);
+
+    //查询个人车产信息
+    long queryGrCarCount(@Param("userid")Integer userid);
+
+    List queryGrCarPage(@Param("offset") Integer offset,@Param("limit")Integer limit, @Param("userid")Integer userid);
+
+    //查询个人借款记录
+    long queryGrLoanRecordCount(@Param("userid")Integer userid, @Param("loantitle")String loantitle, @Param("applyloandatestary")String applyloandatestary, @Param("applyloandateend")String applyloandateend, @Param("loanstate")Integer loanstate);
+
+    List queryGrLoanRecordPage(@Param("offset") Integer offset,@Param("limit")Integer limit, @Param("userid")Integer userid, @Param("loantitle")String loantitle, @Param("applyloandatestary")String applyloandatestary, @Param("applyloandateend")String applyloandateend, @Param("loanstate")Integer loanstate);
 }

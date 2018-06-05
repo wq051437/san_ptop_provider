@@ -73,6 +73,19 @@
 	<select id="backShowPeopleNewss" resultType="com.jk.model.GrManagerBean">
 		select * from p_gr g where g.grid=#{grid}
 	</select>
+	<!--查询个人基本信息-->
+	<select id="selectJbPeopleNews" resultType="com.jk.model.QUserBean">
+		select u.* from p_user u,p_gr g where u.userid=g.userid and g.grid=#{grid}
+	</select>
+	<select id="selectJbPeopleNewss" resultType="com.jk.model.GrManagerBean">
+		select * from p_gr g where g.grid=#{grid}
+	</select>
+	<select id="selectJbPeopleNews1" resultType="com.jk.model.QUserBean">
+		select * from p_user u where u.userid=#{userid}
+	</select>
+	<select id="selectJbPeopleNewss1" resultType="com.jk.model.GrManagerBean">
+		select * from p_gr g where g.userid=#{userid}
+	</select>
 	<!--修改个人信息-->
 	<update id="updateGrUser" parameterType="com.jk.model.QUserBean">
 		update p_user u set u.userphone=#{userphone},u.useremily=#{useremily},u.jobnumber=#{jobnumber} where u.userid=#{userid}
@@ -87,6 +100,100 @@
 	<!--取消拉黑-->
 	<select id="selectCapital" resultType="com.jk.model.CapitalBean">
 		select * from p_capital c where c.userid=#{userid}
+	</select>
+	<!--查询个人学历信息-->
+	<select id="queryGrEducationCount" resultType="long">
+		select count(*) from p_stu s where 1=1
+		<if test="userid != null and userid != '' ">
+			and s.userid=#{userid}
+		</if>
+	</select>
+	<select id="queryGrEducationPage" resultType="java.util.Map">
+		select * from p_stu s where 1=1
+		<if test="userid != null and userid != '' ">
+			and s.userid=#{userid}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+	<!--查询个人工作信息-->
+	<select id="queryGrWorkCount" resultType="long">
+		select count(*) from p_work w where 1=1
+		<if test="userid != null and userid != '' ">
+			and w.userid=#{userid}
+		</if>
+	</select>
+	<select id="queryGrWorkPage" resultType="java.util.Map">
+		select * from p_work w where 1=1
+		<if test="userid != null and userid != '' ">
+			and w.userid=#{userid}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+	<!--查询个人房产信息-->
+	<select id="queryGrRoomCount" resultType="long">
+		select count(*) from p_room r where 1=1
+		<if test="userid != null and userid != '' ">
+			and r.userid=#{userid}
+		</if>
+	</select>
+	<select id="queryGrRoomPage" resultType="java.util.Map">
+		select * from p_room r where 1=1
+		<if test="userid != null and userid != '' ">
+			and r.userid=#{userid}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+	<!--查询个人车产信息-->
+	<select id="queryGrCarCount" resultType="long">
+		select count(*) from p_car c where 1=1
+		<if test="userid != null and userid != '' ">
+			and c.userid=#{userid}
+		</if>
+	</select>
+	<select id="queryGrCarPage" resultType="java.util.Map">
+		select * from p_car c where 1=1
+		<if test="userid != null and userid != '' ">
+			and c.userid=#{userid}
+		</if>
+		limit #{offset},#{limit}
+	</select>
+	<!--查询个人借款记录-->
+	<select id="queryGrLoanRecordCount" resultType="long">
+		select count(*) from t_personalloan p where 1=1
+		<if test="userid != null and userid != '' ">
+			and p.userid=#{userid}
+		</if>
+		<if test="loantitle != null and loantitle != '' ">
+			and p.loantitle like '%${loantitle}%'
+		</if>
+		<if test="applyloandatestary != null and applyloandatestary != '' ">
+			and p.applyloandate &gt;= #{applyloandatestary}
+		</if>
+		<if test="applyloandateend != null and applyloandateend != '' ">
+			and p.applyloandate &lt;= #{applyloandateend}
+		</if>
+		<if test="loanstate != null and loanstate != '' ">
+			and p.loanstate=#{loanstate}
+		</if>
+	</select>
+	<select id="queryGrLoanRecordPage" resultType="java.util.Map">
+		select * from t_personalloan p where 1=1
+		<if test="userid != null and userid != '' ">
+			and p.userid=#{userid}
+		</if>
+		<if test="loantitle != null and loantitle != '' ">
+			and p.loantitle like '%${loantitle}%'
+		</if>
+		<if test="applyloandatestary != null and applyloandatestary != '' ">
+			and p.applyloandate &gt;= #{applyloandatestary}
+		</if>
+		<if test="applyloandateend != null and applyloandateend != '' ">
+			and p.applyloandate &lt;= #{applyloandateend}
+		</if>
+		<if test="loanstate != null and loanstate != '' ">
+			and p.loanstate=#{loanstate}
+		</if>
+		limit #{offset},#{limit}
 	</select>
 
 </mapper>

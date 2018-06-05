@@ -2,6 +2,7 @@ package com.jk.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jk.dao.RepaymentsDao;
+import com.jk.model.CollectionBean;
 import com.jk.model.Personalloan;
 import com.jk.service.RepaymentsService;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by new鹏 on 2018/5/17.
+ * Created by new鹏 on 2018/5/25.
  */
 @Service("repaymentsService")
 public class RepaymentsServiceImpl  implements RepaymentsService{
-
     @Resource
     private RepaymentsDao repaymentsDao;
 
@@ -51,6 +51,7 @@ public class RepaymentsServiceImpl  implements RepaymentsService{
                 dataStr[1]=a;
                 String newdata = dataStr[0]+"-"+dataStr[1]+"-"+dataStr[2];
                 Date newDate = format.parse(newdata);
+
                 String data2 = format.format(new Date());
                 String dataStr2[] = data2.split("-");
                 //年份
@@ -146,6 +147,7 @@ public class RepaymentsServiceImpl  implements RepaymentsService{
                 Date newDate2 = format.parse(newdata2);
                 //当前时间前一个月
                 Date newDate3 = new Date();
+
                 if( newDate2.getTime()<= newDate.getTime()){
                     if(  newDate.getTime()<= newDate3.getTime() ){
                         long  day=(newDate3.getTime()-newDate.getTime())/(24*60*60*1000);
@@ -164,6 +166,7 @@ public class RepaymentsServiceImpl  implements RepaymentsService{
         json.put("b2",b2);
         return json;
     }
+
 
     @Override
     public JSONObject queryrepaymentslist3(Integer offset, Integer limit, Personalloan personalloan2) throws ParseException {
@@ -233,4 +236,11 @@ public class RepaymentsServiceImpl  implements RepaymentsService{
         json.put("b3",b3);
         return json;
     }
+
+    @Override
+    public List querylistgeren(Integer userid) {
+        return  repaymentsDao.querylistgeren(userid);
+    }
+
+
 }

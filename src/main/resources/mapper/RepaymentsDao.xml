@@ -6,9 +6,9 @@
 
 
   <select id="getrepaymentslist" resultType="com.jk.model.Personalloan">
-    select    *   from   t_personalloan    where   t_personalloan.handletime!=0
+    select    *   from   t_personalloan,p_user    where   t_personalloan.userid=p_user.userid    AND  t_personalloan.handletime!=0
     <if test=" personalloan2.pusername != null and personalloan2.pusername !='' ">
-            and  t_Personalloan.pusername LIKE '%${personalloan2.pusername}%'
+      and  t_Personalloan.pusername LIKE '%${personalloan2.pusername}%'
     </if>
     <if test=" personalloan2.loantitle != null and personalloan2.loantitle !='' ">
       and  t_Personalloan.loantitle LIKE '%${personalloan2.loantitle}%'
@@ -22,7 +22,8 @@
   </select>
 
   <select id="getrepaymentslist2" resultType="com.jk.model.Personalloan">
-    select    *   from   t_personalloan    where   t_personalloan.handletime!=0
+
+    select    *   from   t_personalloan,p_user    where   t_personalloan.userid=p_user.userid    AND  t_personalloan.handletime!=0
     <if test=" personalloan2.pusername != null and personalloan2.pusername !='' ">
       and  t_Personalloan.pusername LIKE '%${personalloan2.pusername}%'
     </if>
@@ -31,8 +32,12 @@
     </if>
   </select>
 
+
+
+
   <select id="getrepaymentslist3" resultType="com.jk.model.Personalloan">
-    select    *   from   t_personalloan    where   t_personalloan.handletime!=0
+
+    select    *   from   t_personalloan,p_user    where   t_personalloan.userid=p_user.userid    AND  t_personalloan.handletime!=0
     <if test=" personalloan2.pusername != null and personalloan2.pusername !='' ">
       and  t_Personalloan.pusername LIKE '%${personalloan2.pusername}%'
     </if>
@@ -40,4 +45,16 @@
       and  t_Personalloan.loantitle LIKE '%${personalloan2.loantitle}%'
     </if>
   </select>
+
+
+  <select id="querylistgeren"  resultType="java.util.Map">
+
+    SELECT   *   FROM   p_user,p_gr WHERE   p_user.userid=p_gr.userid
+    and   p_user.userid=#{userid}
+  </select>
+
+  <insert id="addunclinelist"   parameterType="com.jk.model.CollectionBean">
+    insert into t_collection (userid,collectiontype,collectionname,collectiontime,collectiontext,collectionline)
+    values(#{userid},#{collectiontype},#{collectionname},#{collectiontime},#{collectiontext},#{collectionline})
+  </insert>
 </mapper>

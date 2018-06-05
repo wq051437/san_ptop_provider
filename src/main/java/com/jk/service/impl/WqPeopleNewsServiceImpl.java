@@ -63,4 +63,78 @@ public class WqPeopleNewsServiceImpl implements WqPeopleNewsService {
     public CapitalBean selectCapital(Integer userid) {
         return wqPeopleNewsDao.selectCapital(userid);
     }
+
+    //查询个人基本信息
+    @Override
+    public QUserBean selectJbPeopleNews(Integer userid, Integer grid) {
+        if(userid != null && !userid.equals("")){
+            return wqPeopleNewsDao.selectJbPeopleNews1(userid);
+        }else{
+            return wqPeopleNewsDao.selectJbPeopleNews(grid);
+        }
+    }
+
+    @Override
+    public GrManagerBean selectJbPeopleNewss(Integer userid, Integer grid) {
+        if(userid != null && !userid.equals("")){
+            return wqPeopleNewsDao.selectJbPeopleNewss1(userid);
+        }else{
+            return wqPeopleNewsDao.selectJbPeopleNewss(grid);
+        }
+    }
+
+    //查询个人学历信息
+    @Override
+    public JSONObject queryGrEducation(Integer offset, Integer limit, Integer userid) {
+        long count = wqPeopleNewsDao.queryGrEducationCount(userid);
+        List list=wqPeopleNewsDao.queryGrEducationPage(offset,limit,userid);
+        JSONObject json = new JSONObject();
+        json.put("total", count);
+        json.put("rows", list);
+        return json;
+    }
+
+    //查询个人工作信息
+    @Override
+    public JSONObject queryGrWork(Integer offset, Integer limit, Integer userid) {
+        long count = wqPeopleNewsDao.queryGrWorkCount(userid);
+        List list=wqPeopleNewsDao.queryGrWorkPage(offset,limit,userid);
+        JSONObject json = new JSONObject();
+        json.put("total", count);
+        json.put("rows", list);
+        return json;
+    }
+
+    //查询个人房产信息
+    @Override
+    public JSONObject queryGrRoom(Integer offset, Integer limit, Integer userid) {
+        long count = wqPeopleNewsDao.queryGrRoomCount(userid);
+        List list=wqPeopleNewsDao.queryGrRoomPage(offset,limit,userid);
+        JSONObject json = new JSONObject();
+        json.put("total", count);
+        json.put("rows", list);
+        return json;
+    }
+
+    //查询个人车产信息
+    @Override
+    public JSONObject queryGrCar(Integer offset, Integer limit, Integer userid) {
+        long count = wqPeopleNewsDao.queryGrCarCount(userid);
+        List list=wqPeopleNewsDao.queryGrCarPage(offset,limit,userid);
+        JSONObject json = new JSONObject();
+        json.put("total", count);
+        json.put("rows", list);
+        return json;
+    }
+
+    //查询个人借款记录
+    @Override
+    public JSONObject queryGrLoanRecord(Integer offset, Integer limit, Integer userid, String loantitle, String applyloandatestary, String applyloandateend, Integer loanstate) {
+        long count = wqPeopleNewsDao.queryGrLoanRecordCount(userid,loantitle,applyloandatestary,applyloandateend,loanstate);
+        List list=wqPeopleNewsDao.queryGrLoanRecordPage(offset,limit,userid,loantitle,applyloandatestary,applyloandateend,loanstate);
+        JSONObject json = new JSONObject();
+        json.put("total", count);
+        json.put("rows", list);
+        return json;
+    }
 }

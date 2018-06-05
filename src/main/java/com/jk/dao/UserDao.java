@@ -21,4 +21,17 @@ public interface UserDao {
     Integer queryzongrenshu();
     @Select("select  count(*)  from    p_user   WHERE   p_user.logintime like #{format}")
     Integer queryloginrenshu(String format);
+    @Select("   select  *  from     t_user    where   t_user.userphone=#{phone}   ")
+    UserBean   addpanduanphone(String phone);
+    @Update(" update t_user set userpass= #{userpass}  where  userid= #{userid}   ")
+    void updateusermima(@Param("userid") Integer userid,@Param("userpass") String userpass);
+
+    @Select("select count(*) from t_invest i where i.lendstate=2")
+    Integer querydsh();
+
+    @Select("select count(*) from t_invest i where i.lendstate=2")
+    Integer querydcl();
+
+    @Select("select count(*) from t_invest i where i.lendstate=1")
+    Integer querydfb();
 }

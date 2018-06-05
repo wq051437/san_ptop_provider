@@ -29,7 +29,9 @@
    <!-- dubbo端口号 -->  
    <dubbo:protocol name="dubbo" port="20881" ></dubbo:protocol>
 
-   <dubbo:service interface="com.jk.service.UserService" ref="userService" />
+
+
+    <dubbo:service interface="com.jk.service.UserService" ref="userService" />
    <dubbo:service interface="com.jk.service.CreditorService" ref="creditorService" />
    <dubbo:service interface="com.jk.service.QTreeService" ref="qTreeService" />
    <dubbo:service interface="com.jk.service.zxsJkService" ref="zxsjkservice" />
@@ -45,6 +47,13 @@
    <dubbo:service interface="com.jk.service.LogService" ref="logService" />
     <dubbo:service interface="com.jk.service.CompanyService" ref="companyService " />
     <dubbo:service interface="com.jk.service.FinanceService" ref="financeService " />
+    <dubbo:service interface="com.jk.service.zxsCZService" ref="zxsczService " />
+    <dubbo:service interface="com.jk.service.WqHighchartsService" ref="wqHighchartsService " />
+    <dubbo:service interface="com.jk.service.CollectionService" ref="collectionService " />
+    <dubbo:service interface="com.jk.service.SolrService" ref="solrService " />
+    <dubbo:service interface="com.jk.service.FinanceService" ref="financeService " />
+    <dubbo:service interface="com.jk.service.InvestService" ref="investService " />
+    <dubbo:provider delay="-1" timeout="122000" retries="0"/>
 
 
 </beans>

@@ -6,26 +6,61 @@
 
 	<select id="queryrecharge" resultType="com.jk.model.Recharge">
 		select pu.username, tr.* from t_recharge tr,p_user pu where pu.userid=tr.userid
-		<if test="username != null and username != '' ">
-			and username like '%${username}%'
+		<if test="recharge.username != null and recharge.username != '' ">
+			and username like '%${recharge.username}%'
 		</if>
-		<if test="paycompany != null and paycompany != '' ">
-			and paycompany like '%{paycompany}%'
+		<if test="recharge.paycompany != null and recharge.paycompany != '' ">
+			and paycompany like '%{recharge.paycompany}%'
 		</if>
 
 	</select>
 
-	<!--<update id="updateLoan" parameterType="com.jk.model.Companyloan">
-		update t_companyloan tc set tc.loanstate = #{loanstate},tc.loanresult=#{loanresult},tc.resulttime=#{resulttime},tc.loanhandle=#{loanhandle} where tc.companyid=#{companyid}
-	</update>-->
+	<!---->
 	<select id="querylend" resultType="com.jk.model.Personalloan">
-		select tp.*,pc.capitalname from t_personalloan tp,p_capital pc where tp.userid=pc.userid and tp.loanhandle=1
-		<!--<if test="contactname != null and contactname != '' ">
-			and contactname like '%${contactname}%'
+		select tp.loanid,tp.loantitle,tp.loanmoney,tp.moneyrate,tp.loanmonth,tp.lendstate,pc.capitalid,pc.capitalname
+		from t_personalloan tp,p_user pu,p_capital pc
+		where pc.capitalid=pu.userid and pu.userid=tp.userid and tp.loanhandle=1
+		<if test="personalloan.loantitle != null and personalloan.loantitle != '' ">
+			and tp.loantitle like '%${personalloan.loantitle}%'
 		</if>
-		<if test="loanstate != null and loanstate != '' ">
-			and loanstate like '%{loanstate}%'
-		</if>-->
-
+		<if test="personalloan.capitalname != null and personalloan.capitalname != '' ">
+			and pc.capitalname like '%{personalloan.capitalname}%'
+		</if>
 	</select>
+
+	<select id="queryLoanByIds" resultType="java.util.Map">
+		select tp.*,pc.* from p_capital pc,t_personalloan tp,p_user pu where pc.userid=pu.userid and pu.userid=tp.userid and tp.loanid=#{loanid}
+	</select>
+
+	<update id="updatePersonalloanById" parameterType="com.jk.model.Personalloan">
+		update t_personalloan tp set tp.lendstate=1 where tp.loanid=#{personalloan.loanid}
+	</update>
+
+	<update id="updateCapitalLoanById">
+		update p_capital ca set ca.capitalmoney=ca.capitalmoney+#{loanmoney} where ca.capitalid=#{capital.capitalid}
+	</update>
+
+<!--公司放款查询-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+	<select id="queryCompany" resultType="com.jk.model.Companyloan">
+		select tc.*,pc.capitalid,pc.capitalname
+		from t_companyloan tc,p_user pu,p_capital pc
+		where pc.capitalid=pu.userid and pu.userid=tc.userid and tc.loanhandle=1
+		<if test="companyloan.loantitle != null and companyloan.loantitle != '' ">
+			and tc.loantitle like '%${companyloan.loantitle}%'
+		</if>
+		<if test="companyloan.capitalname != null and companyloan.capitalname != '' ">
+			and pc.capitalname like '%{companyloan.capitalname}%'
+		</if>
+	</select>
+
+	<select id="queryCompanyById" resultType="java.util.Map">
+		select tc.*,pc.* from p_capital pc,t_companyloan tc,p_user pu where pc.userid=pu.userid and pu.userid=tc.userid and tc.companyid=#{companyid}
+	</select>
+	<update id="updateCompany">
+		update t_companyloan tc set tc.lendstate=1 where tc.companyid=#{companyloan.companyid}
+	</update>
+
+	<update id="updateCapitalLoan">
+		update p_capital ca set ca.capitalmoney=ca.capitalmoney+#{loanmoney} where ca.capitalid=#{capital.capitalid}
+	</update>
 </mapper>
